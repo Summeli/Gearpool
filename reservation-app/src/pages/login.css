@@ -1,0 +1,14 @@
+.login {
+    text-align: center;  
+    margin: auto;
+    margin-bottom: auto;
+    color:rgb(0, 0, 0);
+  }
+  
+  .login h1 {
+      color: rgb(0, 0, 0);
+  }
+    
+  .login p {
+    font-size: 24px;
+  }
