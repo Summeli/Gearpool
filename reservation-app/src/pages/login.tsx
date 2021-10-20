@@ -13,7 +13,6 @@ const Login: React.FunctionComponent = () => {
   }
   const google_clientId = "296938630298-cmbv8hsv7vn7nb78sv7t6uak1jpq1bop.apps.googleusercontent.com"
   
-  //TODO: use types in response
   const responseGoogle = (response: any) => {
     axios({
       method: 'post',
@@ -22,11 +21,10 @@ const Login: React.FunctionComponent = () => {
       data: {
         token_id : response.getAuthResponse().id_token
       }
-    }).then(response => {
+    }).then((_resp :any) => {
       setAuthenticated(true);
-      //TODO
-      //setUser(response.data.username);
-      //setAdmin(response.data.isAdmin);
+      setUser(_resp.data.username);
+      setAdmin(_resp.data.isAdmin);
     });
   
   };
