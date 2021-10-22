@@ -30,6 +30,9 @@ interface SelectableItem {
   
 const InventorySelector: React.FunctionComponent = () => {
 
+    //TODO: put selected into state
+    let selected : SelectableItem | null = null;
+
     const handleChange = (newitem: SingleValue<SelectableItem>) => {
         console.log(newitem);
 
@@ -45,6 +48,7 @@ const InventorySelector: React.FunctionComponent = () => {
     
     return (<div className="inventoryselector">
       <Select<SelectableItem>
+        value={selected}
         name="Select item"
         getOptionLabel={(item: SelectableItem) => item.name}
         getOptionValue={(item: SelectableItem) => item.type}
