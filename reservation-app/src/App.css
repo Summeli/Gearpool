@@ -57,6 +57,22 @@
 }
 
 
+.footer{
+  margin-top: 30px;
+  background-color: transparent;
+  height: 50px;
+  position:absolute;
+  bottom: 10px;
+  overflow:hidden;
+  white-space: nowrap;
+  max-width: 1000px;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto; 
+  right: 0;
+  left: 0;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

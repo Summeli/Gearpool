@@ -1,5 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+import Footer from "../components/footer";
 import InventorySelector from "../components/inventoryselector";
 import { useUser } from "../components/usercontext";
 import "./home.css";
@@ -13,6 +14,7 @@ const Home: React.FunctionComponent = () => {
       <div className="calendar-wrapper">
         <InventorySelector></InventorySelector>
       </div> }
+      <Footer />
    </div> 
   );
 };

@@ -20,7 +20,6 @@ loginRouter.post("/", async(req: Request, res : Response) => {
     
     let mytoken: any = req.body.token_id;
     const client = new OAuth2Client(G_AUTH_ID);
-    console.log("kissa");
     async function verify() {
         const ticket : LoginTicket = await client.verifyIdToken({
             idToken: mytoken,
