@@ -1,5 +1,6 @@
 import React from 'react';
 import Select, { SingleValue } from "react-select";
+import { FilterOptionOption } from 'react-select/dist/declarations/src/filters';
 import { SelectableItem, useReservationContext } from './reservationcontext';
 
   const myitems: SelectableItem[] = [
@@ -43,6 +44,19 @@ const InventorySelector: React.FunctionComponent = () => {
             return false
         }
     };
+
+    const myFilterOption = (option: FilterOptionOption<SelectableItem>, inputValue: string) : boolean => {
+        const item: SelectableItem = option.data;
+        const input = inputValue.toLowerCase();
+        if(item.type.toLowerCase().includes(input)){
+            return true;
+        }else if(item.name.toLowerCase().includes(input)){
+            return true;
+        }
+        return false;
+      };
+
+
     
     return (<div className="inventoryselector">
       <Select<SelectableItem>
@@ -52,6 +66,7 @@ const InventorySelector: React.FunctionComponent = () => {
         getOptionValue={(item: SelectableItem) => item.name}
         isOptionDisabled={(item: SelectableItem) => {return isDisabled(item)}}
         options={myitems}
+        filterOption={myFilterOption}
         isClearable={true}
         backspaceRemovesValue={true}
         onChange={handleChange}
