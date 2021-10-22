@@ -4,6 +4,7 @@ import {GoogleLogin} from 'react-google-login';
 import axios from 'axios';
 import "./login.css";
 import { useUser } from '../components/usercontext';
+import Footer from '../components/footer';
 
 const Login: React.FunctionComponent = () => {
   const { authenticated,setAuthenticated,setUser,setAdmin} = useUser();
@@ -42,6 +43,7 @@ const Login: React.FunctionComponent = () => {
               cookiePolicy={'single_host_origin'}/>
               }
       </Route>
+      <Footer />
     </div>
   );
 }
