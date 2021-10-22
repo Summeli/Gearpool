@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import Footer from "../components/footer";
-import InventorySelector from "../components/inventoryselector";
+import ReservationsCalendar from "../components/reservationcalendar";
 import { useUser } from "../components/usercontext";
 import "./home.css";
 
@@ -12,7 +12,7 @@ const Home: React.FunctionComponent = () => {
     <div className="Home">
     {!authenticated ? <Redirect to="/" /> : 
       <div className="calendar-wrapper">
-        <InventorySelector></InventorySelector>
+        <ReservationsCalendar />
       </div> }
       <Footer />
    </div> 

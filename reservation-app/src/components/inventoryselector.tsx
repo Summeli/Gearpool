@@ -1,12 +1,7 @@
 import React from 'react';
 import Select, { SingleValue } from "react-select";
+import { SelectableItem, useReservationContext } from './reservationcontext';
 
-interface SelectableItem {
-    name: string;
-    type: string;
-  }
-
-  
   const myitems: SelectableItem[] = [
     {
         name: "hakut",
@@ -30,12 +25,15 @@ interface SelectableItem {
   
 const InventorySelector: React.FunctionComponent = () => {
 
-    //TODO: put selected into state
-    let selected : SelectableItem | null = null;
+    const { item, setItem } = useReservationContext();
+    if (!item || !setItem ) return null;
 
     const handleChange = (newitem: SingleValue<SelectableItem>) => {
         console.log(newitem);
-
+        if(newitem!=null){
+            setItem(newitem);
+        }
+        
       };
 
     const isDisabled = (item:SelectableItem) :boolean => {
@@ -48,10 +46,10 @@ const InventorySelector: React.FunctionComponent = () => {
     
     return (<div className="inventoryselector">
       <Select<SelectableItem>
-        value={selected}
+        value={item}
         name="Select item"
         getOptionLabel={(item: SelectableItem) => item.name}
-        getOptionValue={(item: SelectableItem) => item.type}
+        getOptionValue={(item: SelectableItem) => item.name}
         isOptionDisabled={(item: SelectableItem) => {return isDisabled(item)}}
         options={myitems}
         isClearable={true}
