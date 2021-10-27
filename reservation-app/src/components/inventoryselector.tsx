@@ -48,9 +48,7 @@ const InventorySelector: React.FunctionComponent = () => {
     const myFilterOption = (option: FilterOptionOption<SelectableItem>, inputValue: string) : boolean => {
         const item: SelectableItem = option.data;
         const input = inputValue.toLowerCase();
-        if(item.type.toLowerCase().includes(input)){
-            return true;
-        }else if(item.name.toLowerCase().includes(input)){
+        if(item.type.toLowerCase().includes(input) || item.name.toLowerCase().includes(input)){
             return true;
         }
         return false;
