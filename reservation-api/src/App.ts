@@ -8,6 +8,7 @@ import loginRouter from "./routes/loginRouter"
 import mongoose from 'mongoose'
 import userpermissionsRouter from "./routes/userpermissionsRouter";
 import logoutRouter from "./routes/logoutRouter";
+import inventoryRouter from "./routes/inventoryRouter"
 import {MONGO_URL, ENV, PORT, REACT_APP_SHOW_BUILD} from "./middleware/env"
 config();
 const app: Application = express();
@@ -49,6 +50,8 @@ const routes = Router();
 routes.use('/api/login', loginRouter);
 routes.use('/api/logout', logoutRouter);
 routes.use('/api/userpermissions', userpermissionsRouter);
+routes.use('/api/inventory', inventoryRouter);
+
 app.use(routes);
 
 app.get("/api/", (_req: Request, res: Response) => {
