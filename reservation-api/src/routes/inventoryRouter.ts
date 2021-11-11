@@ -9,7 +9,7 @@ inventoryRouter.get("/",verifyLogin, async (_req: Request, res: Response) => {
 });
 
 
-inventoryRouter.put("/",verifyAdmin, async (_req: Request, res: Response) => {
+inventoryRouter.post("/",verifyAdmin, async (_req: Request, res: Response) => {
     //adds an intem into the inventory
     return res.status(200).send();
 });

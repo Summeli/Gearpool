@@ -17,7 +17,7 @@ const Navigation: React.FunctionComponent = () => {
             <Link to="/">{loginstatus}</Link>
           </li>
           {authenticated ? ( <li> <Link to="/home/">Home</Link> </li>) : ""}
-          {authenticated ? ( <li><Link to="/inventory/">Inventory</Link></li>) : ""}
+          {authenticated && admin ? ( <li><Link to="/inventory/">Inventory</Link></li>) : ""}
           {authenticated && admin ? ( <li><Link to="/userpermissions">Users</Link></li>) : ""}
           {authenticated ? ( <li className='logout-button' ><Link to="/Logout">Logout</Link></li>) : ""}
         </ul>
