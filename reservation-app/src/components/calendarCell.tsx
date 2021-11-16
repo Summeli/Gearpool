@@ -31,8 +31,7 @@ const CalendarCell: React.FunctionComponent<Props> = ({ date }) => {
   if(isWeekend(date) || isHoliday ){
     classes += ' calendar-cell--holiday';
   }
-  let dailytotalhours : number = 0;
-
+  
   return (
     <div
       className={classes}

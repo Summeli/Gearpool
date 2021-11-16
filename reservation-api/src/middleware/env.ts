@@ -1,6 +1,4 @@
 
-import express from 'express'
-
 export const DEFAULT_ADMIN: string = process.env.DEFAULT_ADMIN || "";
 export const G_AUTH_ID="296938630298-cmbv8hsv7vn7nb78sv7t6uak1jpq1bop.apps.googleusercontent.com"
 export const PORT: string | number = process.env.PORT || 5001;

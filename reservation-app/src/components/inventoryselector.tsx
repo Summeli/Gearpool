@@ -30,7 +30,6 @@ const InventorySelector: React.FunctionComponent = () => {
     if (!item || !setItem ) return null;
 
     const handleChange = (newitem: SingleValue<SelectableItem>) => {
-        console.log(newitem);
         if(newitem!=null){
             setItem(newitem);
         }
