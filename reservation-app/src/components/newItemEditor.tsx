@@ -27,7 +27,7 @@ const NewItemEditor: React.FunctionComponent<Props> = (props) => {
       setName( e.target.value );
     }
 
-    const handleChange = (newitem: SingleValue<SelectableCategory>) => {
+    const changeCategory = (newitem: SingleValue<SelectableCategory>) => {
         if(newitem!=null){
             setCategory(newitem.value);
         }
@@ -41,7 +41,7 @@ const NewItemEditor: React.FunctionComponent<Props> = (props) => {
     return (<div className="item">
     <label htmlFor="newitemname" className="labels">Item Name:</label>
     <input type="text" id="newname" name="newname" onChange={nameChanged} />
-    <Select options={options} />
+    <Select options={options} onChange={changeCategory} />
     <button className="item-ready-button" onClick={createNewItem} >Add Item</button>
   </div>);
 };

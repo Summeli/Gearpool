@@ -61,7 +61,7 @@ const InventoryPage: React.FunctionComponent = () => {
     newItems.push(newItem);
 
     //post new projects to backend
-    axios.post("/api/projects", {
+    axios.post("/api/inventory", {
       newItems
       }).then(function (response) {
         setItems(newItems);
