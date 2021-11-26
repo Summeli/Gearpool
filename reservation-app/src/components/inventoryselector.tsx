@@ -6,20 +6,20 @@ import { SelectableItem, useReservationContext } from './reservationcontext';
   const myitems: SelectableItem[] = [
     {
         name: "hakut",
-        type: "category",
+        category: "category",
     },
     {
       name: "Edenred pro",
-      type: "hakut",
+      category: "hakut",
     },
     {
       name: "BD TOSI KOVA",
-      type: "hakut",
+      category: "hakut",
     },
 
     {
       name: "Scarpa 40",
-      type: "kengät",
+      category: "kengät",
     }
   ];
 
@@ -27,6 +27,8 @@ import { SelectableItem, useReservationContext } from './reservationcontext';
 const InventorySelector: React.FunctionComponent = () => {
 
     const { item, setItem } = useReservationContext();
+    const { inventory } = useReservationContext();
+
     if (!item || !setItem ) return null;
 
     const handleChange = (newitem: SingleValue<SelectableItem>) => {
@@ -37,7 +39,7 @@ const InventorySelector: React.FunctionComponent = () => {
       };
 
     const isDisabled = (item:SelectableItem) :boolean => {
-        if(item.type === "category"){
+        if(item.category === "category"){
             return true;
         }else{
             return false
@@ -47,7 +49,7 @@ const InventorySelector: React.FunctionComponent = () => {
     const myFilterOption = (option: FilterOptionOption<SelectableItem>, inputValue: string) : boolean => {
         const item: SelectableItem = option.data;
         const input = inputValue.toLowerCase();
-        if(item.type.toLowerCase().includes(input) || item.name.toLowerCase().includes(input)){
+        if(item.category.toLowerCase().includes(input) || item.name.toLowerCase().includes(input)){
             return true;
         }
         return false;
@@ -62,7 +64,7 @@ const InventorySelector: React.FunctionComponent = () => {
         getOptionLabel={(item: SelectableItem) => item.name}
         getOptionValue={(item: SelectableItem) => item.name}
         isOptionDisabled={(item: SelectableItem) => {return isDisabled(item)}}
-        options={myitems}
+        options={inventory}
         filterOption={myFilterOption}
         isClearable={true}
         backspaceRemovesValue={true}

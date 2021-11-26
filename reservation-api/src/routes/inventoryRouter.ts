@@ -13,9 +13,12 @@ const upsert =  {
 const inventoryName: string = "trad"
 
 inventoryRouter.get("/",verifyLogin, async (_req: Request, res: Response) => {
+    let response : InventoryItem[] = new Array<InventoryItem>();
     let inventory : IInventory | null = await Inventory.findOne({ name: inventoryName});
-
-    return res.status(200).send(inventory);
+    if(inventory && inventory.items){
+      response = inventory.items;
+    }
+    return res.status(200).send(response);
 });
 
 

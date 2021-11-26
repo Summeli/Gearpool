@@ -12,7 +12,7 @@ export type CalendarReservation = {
 
 export interface SelectableItem {
     name: string;
-    type: string;
+    category: string;
   }
 
 type ReservationContext = {
@@ -25,6 +25,8 @@ type ReservationContext = {
   setCurrentMonth: (date: Date) => void;
   selectedDate: Date;
   setSelectedDate: (date: Date) => void;
+  inventory: SelectableItem[];
+  setInventory: (inventory: SelectableItem[]) => void;
   prevMonth: () => void;
   nextMonth: () => void;
 };
@@ -47,7 +49,9 @@ export const ReservationContextProvider: React.FunctionComponent<ReservationCont
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [reservations, setReservations] = useState(new Array<CalendarReservation>());
-  const [item, setItem] = useState({name:"",type:""});
+  const [item, setItem] = useState({name:"",category:""});
+  const [inventory, setInventory] = useState(new Array<SelectableItem>());
+
   const changeMonth = (month: Date) => {
     setCurrentMonth(month);
   };
@@ -56,18 +60,18 @@ export const ReservationContextProvider: React.FunctionComponent<ReservationCont
 
   const {setAuthenticated} = useUser();
 
-  const handlerror = (error: AxiosError) => {
-    if(error.response?.status === 401 && setAuthenticated){
-      setAuthenticated(false);
-    }
-  }
-
   React.useEffect(() => {
     const handlerror = (error: AxiosError) => {
       if(error.response?.status === 401 && setAuthenticated){
         setAuthenticated(false);
       }
     }
+    axios
+    .get<SelectableItem[]>("/api/inventory")
+    .then(response => {
+      setInventory(response.data);
+    });
+
         setSelectedDate(new Date());
   }, [currentMonth, setAuthenticated]);
 
@@ -76,6 +80,8 @@ export const ReservationContextProvider: React.FunctionComponent<ReservationCont
       value={{
         item,
         setItem,
+        inventory,
+        setInventory,
         reservations,
         setReservations,
         weekStartsOn,
