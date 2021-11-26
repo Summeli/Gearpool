@@ -24,7 +24,7 @@ inventoryRouter.post("/",verifyAdmin, async (_req: Request, res: Response) => {
     const newInventory: InventoryItem[] = _req.body.newItems;
     const filter = { name: inventoryName };
     await Inventory.findOneAndReplace(filter,{
-        name: "trad",
+        name: inventoryName,
         items: newInventory
     },upsert);
 
