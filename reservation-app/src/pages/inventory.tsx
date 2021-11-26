@@ -17,18 +17,22 @@ const InventoryPage: React.FunctionComponent = () => {
 
   const { authenticated, setAuthenticated} = useUser();
   const [items, setItems] = useState(Array<Item>());
-  const [categories, setCategories] = useState(Array<string>());
+  const [categories, setCategories] = useState(Array<String>());
   const [addtem, setAddItem] = useState(false);
   const [addCategory, setAddCategory] = useState(false);
  
   React.useEffect(() => {
     axios
-      .get<Item[]>("/api/items")
+      .get<Item[]>("/api/inventory")
       .then(response => {
         setItems(response.data);
       });
 
-      //TODO: get also categories
+      axios
+      .get<String[]>("/api/inventory/categories")
+      .then(response => {
+        setCategories(response.data);
+      });
   }, []);
 
   const removeItem = (name: string) => {
@@ -37,7 +41,7 @@ const InventoryPage: React.FunctionComponent = () => {
     });
 
     //post new projects to backend
-    axios.post("/api/projects", {
+    axios.post("/api/inventory", {
       newProjs
     })
     .then(function (response) {

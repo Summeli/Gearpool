@@ -1,6 +1,7 @@
 import {Router, Request, Response} from "express";
 import { verifyAdmin,verifyLogin } from "../middleware/loginmiddleware";
 import {IInventory, Inventory, InventoryItem} from "../models/intentory"
+import {Categories, ICategory} from "../models/categories"
 
 const inventoryRouter = Router();
 
@@ -29,6 +30,30 @@ inventoryRouter.post("/",verifyAdmin, async (_req: Request, res: Response) => {
     await Inventory.findOneAndReplace(filter,{
         name: inventoryName,
         items: newInventory
+    },upsert);
+
+    //item added, return 200
+    return res.status(200).send();
+});
+
+
+inventoryRouter.get("/categories",verifyLogin, async (_req: Request, res: Response) => {
+    let response : String[] = new Array<String>();
+    let categories : ICategory | null = await Categories.findOne({ name: inventoryName});
+    if(categories && categories.categories){
+      response = categories.categories;
+    }
+    return res.status(200).send(response);
+});
+
+
+inventoryRouter.post("/categories",verifyAdmin, async (_req: Request, res: Response) => {
+    console.log(_req.body);
+    const newCategories: String[] = _req.body.categories;
+    const filter = { name: inventoryName };
+    await Categories.findOneAndReplace(filter,{
+        name: inventoryName,
+        categories: newCategories
     },upsert);
 
     //item added, return 200

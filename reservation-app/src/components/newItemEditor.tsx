@@ -2,7 +2,7 @@ import React, {useState, } from 'react';
 import Select, { SingleValue } from "react-select";
 
 type Props = {
-  categories: string[];  
+  categories: String[];  
   projectCallback: (pname: string, pcategory: string) => void;
 };
 
