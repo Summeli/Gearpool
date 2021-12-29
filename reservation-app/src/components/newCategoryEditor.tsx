@@ -1,7 +1,7 @@
 import React, {useState, } from 'react';
 
 type Props = {
-  projectCallback: (pname: string) => void;
+  newCategoryCallback: (pname: string) => void;
 };
 
 
@@ -15,7 +15,7 @@ const NewCategoryEditor: React.FunctionComponent<Props> = (props) => {
     }
 
     const createNewItem = (e: React.MouseEvent<HTMLButtonElement>) => {    
-      props.projectCallback(name);
+      props.newCategoryCallback(name);
     }
 
     return (<div className="item">

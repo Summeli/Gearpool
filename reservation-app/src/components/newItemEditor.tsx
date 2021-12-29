@@ -3,7 +3,9 @@ import Select, { SingleValue } from "react-select";
 
 type Props = {
   categories: String[];  
-  projectCallback: (pname: string, pcategory: string) => void;
+  newItemCallback: (pname: string, pcategory: string) => void;
+  newCategoryCallback: () => void;
+
 };
 
 interface SelectableCategory {
@@ -20,22 +22,28 @@ const NewItemEditor: React.FunctionComponent<Props> = (props) => {
     let options: SelectableCategory[] = [];
 
     //TODO: loop categories and add them into options
-    options.push({value:"kengät", label:"kengät"} as SelectableCategory);
-    options.push({value:"hakut", label:"hakut"} as SelectableCategory);
+    for (let i of props.categories) {
+      options.push({value:i, label:i} as SelectableCategory);    
+    }
 
+    options.push({value:"new", label:"new Category"} as SelectableCategory)
+    
     const nameChanged = (e: React.ChangeEvent<HTMLInputElement>) => {    
       setName( e.target.value );
     }
 
     const changeCategory = (newitem: SingleValue<SelectableCategory>) => {
-        if(newitem!=null){
-            setCategory(newitem.value);
-        }
+      if(newitem!=null && newitem.value === "new"){
+        props.newCategoryCallback();
+      }
+      else if(newitem!=null){
+          setCategory(newitem.value);
+      }
         
-      };
+    };
     
     const createNewItem = (e: React.MouseEvent<HTMLButtonElement>) => {    
-      props.projectCallback(name, category);
+      props.newItemCallback(name, category);
     }
 
     return (<div className="item">

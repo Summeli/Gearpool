@@ -24,7 +24,6 @@ inventoryRouter.get("/",verifyLogin, async (_req: Request, res: Response) => {
 
 
 inventoryRouter.post("/",verifyAdmin, async (_req: Request, res: Response) => {
-    console.log(_req.body);
     const newInventory: InventoryItem[] = _req.body.newItems;
     const filter = { name: inventoryName };
     await Inventory.findOneAndReplace(filter,{
@@ -48,7 +47,6 @@ inventoryRouter.get("/categories",verifyLogin, async (_req: Request, res: Respon
 
 
 inventoryRouter.post("/categories",verifyAdmin, async (_req: Request, res: Response) => {
-    console.log(_req.body);
     const newCategories: String[] = _req.body.categories;
     const filter = { name: inventoryName };
     await Categories.findOneAndReplace(filter,{
