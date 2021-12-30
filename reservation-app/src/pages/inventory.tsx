@@ -104,7 +104,13 @@ const InventoryPage: React.FunctionComponent = () => {
     <div className="Inventory">
     {!authenticated ? <Redirect to="/" /> : 
       <div className="inventory-wrapper">
-
+        <ul>
+        {!addCategory && items && items.map(item =>
+              <li key={item.id}>
+                  <td>{item.name}  - category: {item.category}</td>
+              </li>
+          )}
+          </ul>
       </div> }
       {addCategory ? (
         <NewCategoryEditor newCategoryCallback={addNewCategory}/ >
