@@ -47,8 +47,7 @@ inventoryRouter.get("/categories",verifyLogin, async (_req: Request, res: Respon
 
 
 inventoryRouter.post("/categories",verifyAdmin, async (_req: Request, res: Response) => {
-    const newCategories: String[] = _req.body.categories;
-    console.log(newCategories);
+    const newCategories: String[] = _req.body.newCategories;
     const filter = { name: inventoryName };
     await Categories.findOneAndUpdate(filter,{
         name: inventoryName,
