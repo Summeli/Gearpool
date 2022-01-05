@@ -9,6 +9,7 @@ import mongoose from 'mongoose'
 import userpermissionsRouter from "./routes/userpermissionsRouter";
 import logoutRouter from "./routes/logoutRouter";
 import inventoryRouter from "./routes/inventoryRouter"
+import reservationsRouter from "./routes/reservationsRouter"
 import {MONGO_URL, ENV, PORT, REACT_APP_SHOW_BUILD} from "./middleware/env"
 config();
 const app: Application = express();
@@ -51,6 +52,7 @@ routes.use('/api/login', loginRouter);
 routes.use('/api/logout', logoutRouter);
 routes.use('/api/userpermissions', userpermissionsRouter);
 routes.use('/api/inventory', inventoryRouter);
+routes.use('/api/reservations', reservationsRouter);
 
 app.use(routes);
 
