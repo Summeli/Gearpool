@@ -6,11 +6,13 @@ import { useUser } from './usercontext';
 
 export type CalendarReservation = {
   date: Date;
+  _id: string;
   itemName: string;
   reservedBy: string;
 };
 
 export interface SelectableItem {
+    _id: string
     name: string;
     category: string;
   }
@@ -49,7 +51,7 @@ export const ReservationContextProvider: React.FunctionComponent<ReservationCont
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [reservations, setReservations] = useState(new Array<CalendarReservation>());
-  const [item, setItem] = useState({name:"",category:""});
+  const [item, setItem] = useState({name:"",_id:"", category:""});
   const [inventory, setInventory] = useState(new Array<SelectableItem>());
 
   const changeMonth = (month: Date) => {

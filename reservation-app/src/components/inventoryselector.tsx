@@ -3,26 +3,6 @@ import Select, { SingleValue } from "react-select";
 import { FilterOptionOption } from 'react-select/dist/declarations/src/filters';
 import { SelectableItem, useReservationContext } from './reservationcontext';
 
-  const myitems: SelectableItem[] = [
-    {
-        name: "hakut",
-        category: "category",
-    },
-    {
-      name: "Edenred pro",
-      category: "hakut",
-    },
-    {
-      name: "BD TOSI KOVA",
-      category: "hakut",
-    },
-
-    {
-      name: "Scarpa 40",
-      category: "kengät",
-    }
-  ];
-
   
 const InventorySelector: React.FunctionComponent = () => {
 
