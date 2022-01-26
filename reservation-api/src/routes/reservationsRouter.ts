@@ -3,10 +3,17 @@ import { verifyLogin } from "../middleware/loginmiddleware";
 
 const reservationsRouter = Router();
 
-reservationsRouter.get("/",verifyLogin, async (_req: Request, res: Response) => {
+reservationsRouter.get("/:year/:month/:itemid/",verifyLogin, async (_req: Request, res: Response) => {
 
     return res.status(200).send();
 });
+
+
+reservationsRouter.post("/:year/:month/:itemid/",verifyLogin, async (_req: Request, res: Response) => {
+
+    return res.status(200).send();
+});
+
 
 
 export default reservationsRouter;
