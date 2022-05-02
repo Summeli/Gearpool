@@ -1,22 +1,27 @@
 import React from 'react';
-import { isSameDay, isSameMonth, isToday, format, isWeekend } from 'date-fns';
+import { isSameMonth, isToday, format, isWeekend } from 'date-fns';
 import { useReservationContext} from './reservationcontext';
+import { isTodayReservedByMe, isTodayReservedBySomeone } from '../util/dateHelppers';
 
 type Props = {
   date: Date;
 };
 
 const CalendarCell: React.FunctionComponent<Props> = ({ date }) => {
-  const { reservations, currentMonth, selectedDate, setSelectedDate } = useReservationContext();
+  const { reservations, currentMonth, reserveDate } = useReservationContext();
 
-  if (!currentMonth || !setSelectedDate || !reservations) return null;
+  if (!currentMonth || !reserveDate || !reservations ) return null;
 
   const thisDate = date;
 
   let classes = 'calendar-cell';
   let isHoliday : boolean = false;
 
-  if (selectedDate && isSameDay(date, selectedDate)) {
+  if(isTodayReservedByMe(reservations, thisDate)) {
+    classes += ' calendar-cell--selected';
+  }
+
+  if(isTodayReservedBySomeone(reservations, thisDate)) {
     classes += ' calendar-cell--selected';
   }
 
@@ -35,7 +40,7 @@ const CalendarCell: React.FunctionComponent<Props> = ({ date }) => {
   return (
     <div
       className={classes}
-      onClick={() => isSameMonth(thisDate, currentMonth) && setSelectedDate(thisDate)}
+      onClick={() => isSameMonth(thisDate, currentMonth) && reserveDate(thisDate)}
       data-testid="calendar-cell"
     >
       <div className="calendar-cell__date">

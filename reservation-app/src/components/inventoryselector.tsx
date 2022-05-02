@@ -6,14 +6,13 @@ import { SelectableItem, useReservationContext } from './reservationcontext';
   
 const InventorySelector: React.FunctionComponent = () => {
 
-    const { item, setItem } = useReservationContext();
-    const { inventory } = useReservationContext();
+    const { item, selectItem, inventory } = useReservationContext();
 
-    if (!item || !setItem ) return null;
+    if (!item || !selectItem ) return null;
 
     const handleChange = (newitem: SingleValue<SelectableItem>) => {
         if(newitem!=null){
-            setItem(newitem);
+          selectItem(newitem);
         }
         
       };

@@ -20,15 +20,15 @@ export interface SelectableItem {
 type ReservationContext = {
   item: SelectableItem;
   setItem: (item: SelectableItem) => void;
+  selectItem: (item: SelectableItem) => void;
   reservations: CalendarReservation[];
   setReservations: (items: CalendarReservation[] ) => void;
   weekStartsOn: CalendarWeekStartsOn;
   currentMonth: Date;
   setCurrentMonth: (date: Date) => void;
-  selectedDate: Date;
-  setSelectedDate: (date: Date) => void;
   inventory: SelectableItem[];
   setInventory: (inventory: SelectableItem[]) => void;
+  reserveDate: (data: Date) => void;
   prevMonth: () => void;
   nextMonth: () => void;
 };
@@ -49,11 +49,9 @@ export const ReservationContextProvider: React.FunctionComponent<ReservationCont
   weekStartsOn,
 }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState<Date>();
   const [reservations, setReservations] = useState(new Array<CalendarReservation>());
   const [item, setItem] = useState({name:"",_id:"", category:""});
   const [inventory, setInventory] = useState(new Array<SelectableItem>());
-
   const changeMonth = (month: Date) => {
     setCurrentMonth(month);
   };
@@ -61,6 +59,17 @@ export const ReservationContextProvider: React.FunctionComponent<ReservationCont
   const nextMonth = () => changeMonth(addMonths(currentMonth, 1));
 
   const {setAuthenticated} = useUser();
+
+  const reserveDate = (date: Date) => {
+    console.log("date reserved");
+ 
+  };
+
+  const selectItem = (item: SelectableItem) => {
+    //TODO: select item, get Calendar for that item, and set it.
+    setItem(item);
+
+  };
 
   React.useEffect(() => {
     const handlerror = (error: AxiosError) => {
@@ -73,15 +82,13 @@ export const ReservationContextProvider: React.FunctionComponent<ReservationCont
     .then(response => {
       setInventory(response.data);
     });
-
-        setSelectedDate(new Date());
   }, [currentMonth, setAuthenticated]);
 
   return (
     <ReservationContext.Provider
       value={{
         item,
-        setItem,
+        selectItem,
         inventory,
         setInventory,
         reservations,
@@ -89,10 +96,9 @@ export const ReservationContextProvider: React.FunctionComponent<ReservationCont
         weekStartsOn,
         currentMonth,
         setCurrentMonth,
-        selectedDate,
-        setSelectedDate,
         prevMonth,
         nextMonth,
+        reserveDate
       }}
     >
       {children}
