@@ -4,6 +4,10 @@ import { CalendarWeekStartsOn } from './reservationcalendar';
 import axios, { AxiosError } from 'axios';
 import { useUser } from './usercontext';
 
+export type ReservationResponse = {
+  reservations: CalendarReservation[]
+}
+
 export type CalendarReservation = {
   date: Date;
   _id: string;
@@ -68,7 +72,7 @@ export const ReservationContextProvider: React.FunctionComponent<ReservationCont
   const selectItem = (item: SelectableItem) => {
     //TODO: select item, get Calendar for that item, and set it.
     setItem(item);
-
+  
   };
 
   React.useEffect(() => {
