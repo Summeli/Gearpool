@@ -14,8 +14,7 @@ export async function makeReservation(reservationDate: Date, itemId: string): Pr
 
     //post new projects to backend
    return axios
-        .post("/api/reservations'/"+year+"/"+month+"/" + date, {
-            id
+        .post("/api/reservations'/"+year+"/"+month+"/" + date +"?id="+id, {
         })
     .then(function (response) {
         if(response.status!==200) {

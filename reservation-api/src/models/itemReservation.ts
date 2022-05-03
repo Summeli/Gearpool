@@ -1,22 +1,22 @@
-import mongoose, { model, Schema, Model, Document } from 'mongoose';
+import { model, Schema, Model, Document } from 'mongoose';
 
 export interface IItemReservation extends Document{
     itemId: String
-    name: String
+    reservedBy: String
     month: number
     year: number
-    reservations: Date[];
+    date: number
 }
 
 //subdocument schema
 const ItemReservationSchema: Schema = new Schema({
     ItemId: { type: String, required: true },
-    name: {type: String, required: true},
-    month: {type: String, required: true},
-    year: {type: String, required: true},
-    reservations : [Date]
+    reservedBy: {type: String, required: true},
+    month: {type: Number, required: true},
+    year: {type: Number, required: true},
+    date : {type: Number, required: true},
     }
 );
 
 
-export const Inventory: Model<IItemReservation> = model<IItemReservation>('reservation', ItemReservationSchema);
+export const ItemReservation: Model<IItemReservation> = model<IItemReservation>('reservation', ItemReservationSchema);
