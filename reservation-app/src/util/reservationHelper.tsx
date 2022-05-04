@@ -1,7 +1,6 @@
 import axios from "axios";
 import { getDate, getMonth, getYear } from "date-fns";
-import { getCommentRange } from "typescript";
-import { CalendarReservation, ItemReservation, ReservationResponse } from "../components/reservationcontext";
+import { CalendarReservation, ItemReservation } from "../components/reservationcontext";
 
 
 

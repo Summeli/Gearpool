@@ -1,5 +1,4 @@
 import {Router, Request, Response} from "express";
-import { PartiallyEmittedExpression } from "typescript";
 import { verifyLogin } from "../middleware/loginmiddleware";
 import {IItemReservation, ItemReservation} from '../models/ItemReservation';
 
@@ -32,22 +31,25 @@ reservationsRouter.post("/:year/:month/:date/",verifyLogin, async (_req: Request
 
     const pItemId: String = String(JSON.parse(String(_req.query.id)));
 
-    const filter = {itemId: pItemId, yaer: pyear, month: pmonth, date: pdate };
+    const filter =  {itemId: pItemId, year: pyear, month: pmonth, date: pdate};
     
     //verify that item is available
     let reserved : IItemReservation | null = await ItemReservation.findOne(filter);
     if(reserved === null){
         //it's free, reserve it
-        console.log("params, pmonth", pmonth, "pyear", pyear, "pdate", pdate, "itemId", pItemId);
         const newReservation = {itemId: pItemId, reservedBy: mysession.user, year: pyear, month: pmonth, date: pdate };
         ItemReservation.create(newReservation);
+    }else {
+        console.log("it was already reserved, remove it, if it was mine");
+        if(reserved.reservedBy === mysession.user){
+            ItemReservation.remove(reserved);
+        }
     }
 
-   
-
-    const findThisMonth =  {itemId: pItemId, yaer: pyear, month: pmonth };
+    //return new state
+    const findThisMonth =  {itemId: pItemId, year: pyear, month: pmonth};
     let reservations : IItemReservation[] | null = await ItemReservation.find(findThisMonth);
-
+    
     return res.status(200).send(reservations);
 });
 

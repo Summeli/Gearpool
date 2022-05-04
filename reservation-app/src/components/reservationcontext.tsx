@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { addMonths, getMonth, subMonths,getYear, startOfMonth } from 'date-fns';
 import { CalendarWeekStartsOn } from './reservationcalendar';
 import axios, { AxiosError } from 'axios';
@@ -73,21 +73,20 @@ export const ReservationContextProvider: React.FunctionComponent<ReservationCont
 
   const {setAuthenticated} = useUser();
 
-  const reserveDate = async (date: Date) => {
+  const reserveDate = useCallback( async (date: Date) => {
     if(item._id !== null && item._id.length > 0){
       const reservations: CalendarReservation[]= await makeReservation(date, item._id);
       setReservations(reservations);
     }else{
       //TODO: show EROOR dialog that an iteam should be selected
     }
-  };
+  },[reservations]);
 
-  const selectItem = async (item: SelectableItem) => {
-    const reservations: CalendarReservation[] = await getReservations(currentMonth,item._id);
+  const selectItem =  useCallback( async (selected: SelectableItem) => {
+    const reservations: CalendarReservation[] = await getReservations(currentMonth,selected._id);
     setReservations(reservations);
-    console.log("reservations SET", reservations);
-    setItem(item);
-  };
+    setItem(selected);
+  },[reservations, item]);;
 
   React.useEffect(() => {
     const handlerror = (error: AxiosError) => {
@@ -100,7 +99,7 @@ export const ReservationContextProvider: React.FunctionComponent<ReservationCont
     .then(response => {
       setInventory(response.data);
     });
-  }, [currentMonth, setAuthenticated]);
+  }, [inventory, setAuthenticated]);
 
   return (
     <ReservationContext.Provider
