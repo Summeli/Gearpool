@@ -17,9 +17,9 @@ reservationsRouter.get("/:year/:month/",verifyLogin, async (_req: Request, res: 
     const pyear: number = Number(_req.params.year);
     const pItemId: String = String(JSON.parse(String(_req.query.id)));
 
-    const findThisMonth =  {itemId: pItemId, yaer: pyear, month: pmonth };
-    let reservations : IItemReservation[] | null = await ItemReservation.find(findThisMonth);
+    const findThisMonth =  {itemId: pItemId, year: pyear, month: pmonth};
 
+    let reservations : IItemReservation[] | null = await ItemReservation.find(findThisMonth);
     return res.status(200).send(reservations);
 });
 
