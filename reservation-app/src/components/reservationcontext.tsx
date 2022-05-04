@@ -3,6 +3,7 @@ import { addMonths, getMonth, subMonths,getYear, startOfMonth } from 'date-fns';
 import { CalendarWeekStartsOn } from './reservationcalendar';
 import axios, { AxiosError } from 'axios';
 import { useUser } from './usercontext';
+import { makeReservation } from '../util/reservationHelper';
 
 export type ReservationResponse = {
   reservations: CalendarReservation[]
@@ -64,15 +65,18 @@ export const ReservationContextProvider: React.FunctionComponent<ReservationCont
 
   const {setAuthenticated} = useUser();
 
-  const reserveDate = (date: Date) => {
-    console.log("date reserved");
- 
+  const reserveDate = async (date: Date) => {
+    if(item._id !== null && item._id.length > 0){
+      let res = await makeReservation(date, item._id);
+      console.log(res);
+    }else{
+      //TODO: show EROOR dialog that an iteam should be selected
+    }
   };
 
   const selectItem = (item: SelectableItem) => {
     //TODO: select item, get Calendar for that item, and set it.
     setItem(item);
-  
   };
 
   React.useEffect(() => {

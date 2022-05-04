@@ -10,7 +10,7 @@ export interface IItemReservation extends Document{
 
 //subdocument schema
 const ItemReservationSchema: Schema = new Schema({
-    ItemId: { type: String, required: true },
+    itemId: { type: String, required: true },
     reservedBy: {type: String, required: true},
     month: {type: Number, required: true},
     year: {type: Number, required: true},

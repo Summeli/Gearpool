@@ -36,14 +36,14 @@ reservationsRouter.post("/:year/:month/:date/",verifyLogin, async (_req: Request
     
     //verify that item is available
     let reserved : IItemReservation | null = await ItemReservation.findOne(filter);
-    if(reserved != null){
-        //it was already reserved.
-        //return reservation information about this item for the month
+    if(reserved === null){
+        //it's free, reserve it
+        console.log("params, pmonth", pmonth, "pyear", pyear, "pdate", pdate, "itemId", pItemId);
+        const newReservation = {itemId: pItemId, reservedBy: mysession.user, year: pyear, month: pmonth, date: pdate };
+        ItemReservation.create(newReservation);
     }
 
-    //it's free, reserve it
-    const newReservation = {itemId: pItemId, reservedBy: mysession.user, yaer: pyear, month: pmonth, date: pdate };
-    ItemReservation.create(newReservation);
+   
 
     const findThisMonth =  {itemId: pItemId, yaer: pyear, month: pmonth };
     let reservations : IItemReservation[] | null = await ItemReservation.find(findThisMonth);

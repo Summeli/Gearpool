@@ -12,9 +12,10 @@ export async function makeReservation(reservationDate: Date, itemId: string): Pr
 
     let id: String = JSON.stringify(itemId);
 
+    console.log("itemid is:", id)
     //post new projects to backend
    return axios
-        .post("/api/reservations'/"+year+"/"+month+"/" + date +"?id="+id, {
+        .post("/api/reservations/"+year+"/"+month+"/" + date +"?id="+id, {
         })
     .then(function (response) {
         if(response.status!==200) {
