@@ -38,11 +38,10 @@ reservationsRouter.post("/:year/:month/:date/",verifyLogin, async (_req: Request
     if(reserved === null){
         //it's free, reserve it
         const newReservation = {itemId: pItemId, reservedBy: mysession.user, year: pyear, month: pmonth, date: pdate };
-        ItemReservation.create(newReservation);
+        await ItemReservation.create(newReservation);
     }else {
-        console.log("it was already reserved, remove it, if it was mine");
         if(reserved.reservedBy === mysession.user){
-            ItemReservation.remove(reserved);
+            await ItemReservation.findOneAndDelete({_id:reserved._id});
         }
     }
 

@@ -80,13 +80,13 @@ export const ReservationContextProvider: React.FunctionComponent<ReservationCont
     }else{
       //TODO: show EROOR dialog that an iteam should be selected
     }
-  },[reservations]);
+  },[reservations,item]);
 
   const selectItem =  useCallback( async (selected: SelectableItem) => {
     const reservations: CalendarReservation[] = await getReservations(currentMonth,selected._id);
     setReservations(reservations);
     setItem(selected);
-  },[reservations, item]);;
+  },[reservations, currentMonth,item]);;
 
   React.useEffect(() => {
     const handlerror = (error: AxiosError) => {
