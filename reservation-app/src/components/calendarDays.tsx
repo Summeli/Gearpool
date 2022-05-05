@@ -15,7 +15,7 @@ const CalendarDays: React.FunctionComponent = () => {
   for (let i = 0; i < 7; i++) {
     days.push(
       <div key={i} className="calendar-day" data-testid="calendar-day">
-        {format(addDays(weekStart, i), 'EEEE')}
+        {format(addDays(weekStart, i), 'EEEEEE')}
       </div>
     );
   }

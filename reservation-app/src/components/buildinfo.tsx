@@ -15,7 +15,6 @@ const BuildInfo: React.FunctionComponent = () => {
         })
       },[buildTimestamp]);
 
-    console.log(buildinfo);
     return <div className="buildtime">{buildinfo}</div>;
   };
   

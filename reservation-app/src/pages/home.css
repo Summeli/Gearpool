@@ -9,6 +9,10 @@
     color: #fc3;
   }
 
+  .inventoryselector{
+    margin-left: 10px;
+    margin-right: 10px;
+  }
   .calendar-wrapper{
     display: block;
     margin-left: auto;
@@ -16,7 +20,7 @@
     width: 850px;
     padding-top: 10px;
     }
-
+  
   .calendar-header {
     display: flex;
     justify-content: space-between;
@@ -105,4 +109,14 @@
   }
   .no-reservations{
     background-color: #eaeaea;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .calendar-wrapper{
+      display: block;
+      margin-left: 0px;
+      margin-right: 0px;
+      width: 380px;
+      padding-top: 10px;
+      }
   }
