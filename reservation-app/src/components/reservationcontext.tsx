@@ -34,6 +34,7 @@ type ReservationContext = {
   item: SelectableItem;
   setItem: (item: SelectableItem) => void;
   selectItem: (item: SelectableItem) => void;
+  selectedDate: Date,
   reservations: CalendarReservation[];
   setReservations: (items: CalendarReservation[] ) => void;
   weekStartsOn: CalendarWeekStartsOn;
@@ -65,7 +66,9 @@ export const ReservationContextProvider: React.FunctionComponent<ReservationCont
   const [reservations, setReservations] = useState(new Array<CalendarReservation>());
   const [item, setItem] = useState({name:"",_id:"", category:""});
   const [inventory, setInventory] = useState(new Array<SelectableItem>());
+  const [selectedDate, setSelectedDate] = useState<Date>();
   const changeMonth = (month: Date) => {
+    setSelectedDate(startOfMonth(month));
     setCurrentMonth(month);
   };
   const prevMonth = () => changeMonth(subMonths(currentMonth, 1));
@@ -77,6 +80,7 @@ export const ReservationContextProvider: React.FunctionComponent<ReservationCont
     if(item._id !== null && item._id.length > 0){
       const reservations: CalendarReservation[]= await makeReservation(date, item._id);
       setReservations(reservations);
+      setSelectedDate(date);
     }else{
       //TODO: show EROOR dialog that an iteam should be selected
     }
@@ -94,6 +98,7 @@ export const ReservationContextProvider: React.FunctionComponent<ReservationCont
     .then(response => {
       setInventory(response.data);
     });
+    setSelectedDate(new Date());
   }, [setAuthenticated]);
 
   return (
@@ -101,6 +106,7 @@ export const ReservationContextProvider: React.FunctionComponent<ReservationCont
       value={{
         item,
         selectItem,
+        selectedDate,
         inventory,
         setInventory,
         reservations,

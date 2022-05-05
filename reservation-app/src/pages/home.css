@@ -78,6 +78,7 @@
   }
   
   .calendar-cell--selected {
+    opacity: 0.5;
     background-color: #eaeaea;
   }
 
@@ -91,4 +92,17 @@
 
   .calendar-cell__date {
     margin-bottom: 5px;
+  }
+  .calendar-explanations {
+    float:left;
+  }
+  .reserved-by-me {
+    background-color: #7491f0;
+  }
+  .reserved-by-oks{
+    background-color: #ff6680;
+
+  }
+  .no-reservations{
+    background-color: #eaeaea;
   }

@@ -4,6 +4,7 @@ import CalendarDays from './calendarDays';
 import CalendarCells from './calendarCells';
 import { ReservationContextProvider } from './reservationcontext';
 import InventorySelector from './inventoryselector';
+import CalendarExplanation from './CalendarExplanation';
 
 
 export type CalendarWeekStartsOn = 0 | 1 | 2 | 3 | 4 | 5 | 6;
@@ -18,6 +19,7 @@ const ReservationsCalendar: React.FunctionComponent<CalendarProps> = ({ weekStar
     <CalendarHeader />
     <CalendarDays />
     <CalendarCells />
+    <CalendarExplanation / >
   </ReservationContextProvider>
 );
   
