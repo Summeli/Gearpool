@@ -73,9 +73,17 @@
   .calendar-cell--selected {
     background-color: #eaeaea;
   }
+
+  .calendar-cell--reserved-by-me {
+    background-color: #7491f0;
+  }
+  
+  .calendar-cell--reserved-by-oks {
+    background-color: #ff6680;
+  }
   
   .calendar-cell--today {
-    background-color: rgb(247,245,141);
+    background-color: rgb(42, 42, 28);
   }
   
   .weeklyhours-edit--today{

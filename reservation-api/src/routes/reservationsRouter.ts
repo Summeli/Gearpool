@@ -14,6 +14,7 @@ const reservationsRouter = Router();
 
 reservationsRouter.get("/:year/:month/",verifyLogin, async (_req: Request, res: Response) => {
     const mysession = _req.session;
+
     const pmonth : number = Number(_req.params.month);
     const pyear: number = Number(_req.params.year);
     const pItemId: String = String(JSON.parse(String(_req.query.id)));

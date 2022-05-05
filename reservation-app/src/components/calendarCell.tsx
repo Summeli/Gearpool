@@ -18,12 +18,12 @@ const CalendarCell: React.FunctionComponent<Props> = ({ date }) => {
   let isHoliday : boolean = false;
 
   if(isTodayReservedByMe(reservations, thisDate)) {
-    classes += ' calendar-cell--selected';
+    classes += ' calendar-cell--reserved-by-me';
   }
 
   if(isTodayReservedBySomeone(reservations, thisDate)) {
-    classes += ' calendar-cell--selected';
-  }
+    classes += ' calendar-cell--reserved-by-oks';
+  } 
 
   if (isToday(date)) {
     classes += ' calendar-cell--today';

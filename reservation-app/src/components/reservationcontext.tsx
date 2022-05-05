@@ -80,26 +80,21 @@ export const ReservationContextProvider: React.FunctionComponent<ReservationCont
     }else{
       //TODO: show EROOR dialog that an iteam should be selected
     }
-  },[reservations,item]);
+  },[item]);
 
   const selectItem =  useCallback( async (selected: SelectableItem) => {
     const reservations: CalendarReservation[] = await getReservations(currentMonth,selected._id);
     setReservations(reservations);
     setItem(selected);
-  },[reservations, currentMonth,item]);;
+  },[currentMonth]);;
 
   React.useEffect(() => {
-    const handlerror = (error: AxiosError) => {
-      if(error.response?.status === 401 && setAuthenticated){
-        setAuthenticated(false);
-      }
-    }
     axios
     .get<SelectableItem[]>("/api/inventory")
     .then(response => {
       setInventory(response.data);
     });
-  }, [inventory, setAuthenticated]);
+  }, [setAuthenticated]);
 
   return (
     <ReservationContext.Provider
