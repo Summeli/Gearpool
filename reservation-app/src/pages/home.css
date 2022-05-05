@@ -8,7 +8,7 @@
   h1 {
     color: #fc3;
   }
-  
+
   .calendar-wrapper{
     display: block;
     margin-left: auto;
@@ -88,14 +88,7 @@
   .calendar-cell--reserved-by-oks {
     background-color: #ff6680;
   }
-  
-  .calendar-cell--today {
-    background-color: rgb(42, 42, 28);
-  }
-  
-  .weeklyhours-edit--today{
-    background-color: rgb(247,245,141);
-  }
+
   .calendar-cell__date {
     margin-bottom: 5px;
   }

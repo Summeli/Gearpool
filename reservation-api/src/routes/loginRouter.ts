@@ -13,9 +13,7 @@ loginRouter.post("/", async(req: Request, res : Response) => {
     let username: string = "Anonymous";
     let mysession = req.session;
     if(mysession.user){
-      console.log("we already had a user logged in")
-      const ldata: LoginResponse = {username: mysession.name, isAdmin: mysession.admin}; 
-      return res.status(200).send(ldata);
+      console.log("we already had a user logged in, overwrite the session");
     }
     
     let mytoken: any = req.body.token_id;
