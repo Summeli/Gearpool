@@ -32,7 +32,7 @@ app.use(session({
     httpOnly: true,
     secure: false, //TODO: make sure cookie is set into secure in the cloud level
     sameSite: true,
-    maxAge: 600000 // Time is in miliseconds
+    maxAge: 60*60*1000, // 1 hour
 }, store: new MemoryStore({
   checkPeriod: 86400000 // prune expired entries every 24h
   })
