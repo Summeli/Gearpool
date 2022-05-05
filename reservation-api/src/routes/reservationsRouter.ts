@@ -1,5 +1,6 @@
 import {Router, Request, Response} from "express";
-import { verifyLogin } from "../middleware/loginmiddleware";
+import { request } from "http";
+import { isAdmin, verifyLogin } from "../middleware/loginmiddleware";
 import {IItemReservation, ItemReservation} from '../models/ItemReservation';
 
 //upsert option for montdb
@@ -12,6 +13,7 @@ const upsert =  {
 const reservationsRouter = Router();
 
 reservationsRouter.get("/:year/:month/",verifyLogin, async (_req: Request, res: Response) => {
+    const mysession = _req.session;
     const pmonth : number = Number(_req.params.month);
     const pyear: number = Number(_req.params.year);
     const pItemId: String = String(JSON.parse(String(_req.query.id)));
@@ -19,6 +21,9 @@ reservationsRouter.get("/:year/:month/",verifyLogin, async (_req: Request, res: 
     const findThisMonth =  {itemId: pItemId, year: pyear, month: pmonth};
 
     let reservations : IItemReservation[] | null = await ItemReservation.find(findThisMonth);
+
+    hideEmails(mysession.user, isAdmin(_req), reservations,);
+
     return res.status(200).send(reservations);
 });
 
@@ -49,10 +54,24 @@ reservationsRouter.post("/:year/:month/:date/",verifyLogin, async (_req: Request
     const findThisMonth =  {itemId: pItemId, year: pyear, month: pmonth};
     let reservations : IItemReservation[] | null = await ItemReservation.find(findThisMonth);
     
+  
+    hideEmails(mysession.user, isAdmin(_req), reservations,);
+
     return res.status(200).send(reservations);
 });
 
 
 
+function hideEmails(user: string, isadmin: boolean, items: IItemReservation[] ){
+    for( var item of items){
+        if(item.reservedBy === user){
+            item.reservedBy = "me";
+        }else {
+            if(isadmin === false){ //hide emails, if not admin
+                item.reservedBy = "oks";
+            }
+        }
+    }
+}
 
 export default reservationsRouter;

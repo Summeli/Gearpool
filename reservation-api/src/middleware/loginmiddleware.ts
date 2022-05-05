@@ -29,5 +29,13 @@ export const verifyAdmin = (req: Request, res: Response, next: NextFunction) => 
   }    
 };
 
+// is request made with Admin
+export function isAdmin(req: Request) : boolean {
+  if(!req.session.admin){
+      return false
+    } else {
+      return true;
+  }    
+};
 
   
