@@ -141,6 +141,12 @@
     height: 30px;
   }
 
+  .notification{
+    font-size: 22px;
+    font-family: Poppins;
+    font-weight: bold;
+  }
+
   @media only screen and (max-width: 768px) {
     .calendar-wrapper{
       display: block;

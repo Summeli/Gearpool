@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useState } from 'react';
-import { addMonths, getMonth, subMonths,getYear, startOfMonth } from 'date-fns';
+import { addMonths, subMonths, startOfMonth } from 'date-fns';
 import { CalendarWeekStartsOn } from './reservationcalendar';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { useUser } from './usercontext';
 import { getReservations, makeReservation } from '../util/reservationHelper';
 

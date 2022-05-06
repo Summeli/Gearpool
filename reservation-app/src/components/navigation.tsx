@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { MouseEventHandler } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import HamburgerIcon from './hamburgericon';
 import { useUser } from './usercontext';
