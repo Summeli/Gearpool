@@ -4,9 +4,9 @@ const CalendarExplanation: React.FunctionComponent = () => {
 
   return (
     <div className="calendar-explanations">
-        <div className="no-reservation">free</div>
-        <div className="reserved-by-me">my reservation</div>
-        <div className="reserved-by-oks">taken</div>
+        <div className="calendar-explanation calenno-reservation">free</div>
+        <div className="calendar-explanation reserved-by-me">Me</div>
+        <div className="calendar-explanation reserved-by-oks">taken</div>
 
     </div>);
 

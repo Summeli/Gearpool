@@ -99,7 +99,21 @@
     margin-bottom: 5px;
   }
   .calendar-explanations {
-    float:left;
+    display: flex;
+    height:30px;
+    flex-flow: column wrap;
+    align-items: center;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 20px;
+  }
+  .calendar-explanation {
+    height: 20px;
+    width: calc((100% / 3) - 2%);
+    border-radius: 2px;
+    border-width: 2px;
+    border-color: #000000;
+    border-style: solid;
   }
   .reserved-by-me {
     background-color: #7491f0;
