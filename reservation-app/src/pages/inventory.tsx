@@ -9,16 +9,22 @@ import "./inventory.css";
 
 
 export interface Item {
+  _id: string;
   name: string;
   category: string;
-  id?: string;
 };
+
+export interface Category {
+  _id: string;
+  category: string;
+};
+
 
 const InventoryPage: React.FunctionComponent = () => {
 
   const { authenticated, setAuthenticated} = useUser();
   const [items, setItems] = useState(Array<Item>());
-  const [categories, setCategories] = useState(Array<String>());
+  const [categories, setCategories] = useState(Array<Category>());
   const [addItem, setAddItem] = useState(false);
   const [addCategory, setAddCategory] = useState(false);
  
@@ -30,7 +36,7 @@ const InventoryPage: React.FunctionComponent = () => {
       });
 
       axios
-      .get<String[]>("/api/inventory/categories")
+      .get<Category[]>("/api/inventory/categories")
       .then(response => {
         setCategories(response.data);
       });
@@ -58,14 +64,13 @@ const InventoryPage: React.FunctionComponent = () => {
   }
 
   const addNewItem = (pname: string, pcategory: string) => {
-    const newItem: Item = {name: pname, category: pcategory};    
-    let newItems: Item[] = Array<Item>();
-    Array.prototype.push.apply(newItems, items);
-    newItems.push(newItem);
-
     //post new item to backend  
     axios.post("/api/inventory", {name: pname, category: pcategory})
       .then(function (response) {
+        if(response.status!==200) {
+          console.log("error");
+        }
+        let newItems: Item[] = response.data as Item[];
         setItems(newItems);
         setAddItem(false);
         setAddCategory(false);
@@ -76,13 +81,13 @@ const InventoryPage: React.FunctionComponent = () => {
       });
   } 
   const addNewCategory = (pname: string) => {
-    let newCategories: string[] = Array<string>();
-    Array.prototype.push.apply(newCategories, categories);
-    newCategories.push(pname);
      //post new categories to backend
-     axios.post("/api/inventory/categories", {
-      newCategories
-      }).then(function () {
+     axios.post("/api/inventory/categories/"+pname, {})
+     .then(function (response) {
+        if(response.status!==200) {
+          console.log("error");
+        }
+        let newCategories: Category[] = response.data as Category[];
         setCategories(newCategories);
         setAddItem(false);
         setAddCategory(false);
@@ -93,17 +98,36 @@ const InventoryPage: React.FunctionComponent = () => {
       });
   };
 
+  const removeCategory = (pname: string) => {
+    //delete category
+    axios.delete("/api/inventory/categories/"+pname, {})
+    .then(function (response) {
+       if(response.status!==200) {
+         console.log("error");
+       }
+       let newCategories: Category[] = response.data as Category[];
+       setCategories(newCategories);
+       setAddItem(false);
+       setAddCategory(false);
+     }).catch(function (error) {
+       if(error.response?.status === 401 && setAuthenticated){
+         setAuthenticated(false);
+      }
+    });
+  };
+  
   const newCategoryCallback = () => {
     setAddCategory(true);
   };
-
+  
   return (
     <div className="Inventory">
+    <h2>Inventory</h2>
     {!authenticated ? <Redirect to="/" /> : 
       <div className="inventory-wrapper">
         <ul>
         {!addCategory && items && items.map(item =>
-              <li key={item.id}>
+              <li key={item._id}>
                   <td>{item.name}  - category: {item.category} ----<button onClick={ () => {removeItem(item.name);}}>removeMe</button></td>
               </li>
           )}
@@ -126,7 +150,22 @@ const InventoryPage: React.FunctionComponent = () => {
         <div />
       )
       }
-
+      <h2>Categorries</h2>
+      <div className="inventory-wrapper">
+        <ul>
+        { categories && categories.map(category =>
+              <li key={category._id}>
+                  <td> - category: {category.category} ----<button onClick={ () => {removeCategory(category.category);}}>removeMe</button></td>
+              </li>
+          )}
+        </ul>
+        {!addCategory && !addItem ? (
+        <button onClick={ () => {newCategoryCallback();}}>new Category</button>
+        ):(
+          <div />
+        )
+        }
+      </div>
       <Footer />
    </div> 
   );

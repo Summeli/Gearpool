@@ -33,8 +33,9 @@ inventoryRouter.post("/",verifyAdmin, async (_req: Request, res: Response) => {
         console.log("item added to inventory:" + newItem.name + "category: "+ newItem.category);
     }
 
-    //item added, return 200
-    return res.status(200).send();
+    //send new state
+    let inventory : IInventory[] | null = await Inventory.find();
+    return res.status(200).send(inventory);
 });
 
 inventoryRouter.delete("/:name",verifyAdmin, async (_req: Request, res: Response) => {
@@ -51,31 +52,54 @@ inventoryRouter.delete("/:name",verifyAdmin, async (_req: Request, res: Response
         console.log("unable to delete item, not found:", pname);
     }    
 
-    //item added, return 200
-    return res.status(200).send();
+    //send new state
+    let inventory : IInventory[] | null = await Inventory.find();
+    return res.status(200).send(inventory);
 });
 
 
 inventoryRouter.get("/categories",verifyLogin, async (_req: Request, res: Response) => {
-    let response : String[] = new Array<String>();
-    let categories : ICategory | null = await Categories.findOne({ name: inventoryName});
-    if(categories && categories.categories){
-      response = categories.categories;
+    let categories : ICategory[] | null = await Categories.find();
+
+    return res.status(200).send(categories);
+});
+
+
+inventoryRouter.post("/categories/:name",verifyAdmin, async (_req: Request, res: Response) => {
+    const newCategory : string = String(_req.params.name);
+
+    const filter =  {category: newCategory};
+    //verify that it's not  a duplicate
+    let reserved : ICategory | null = await Categories.findOne(filter);
+    if(reserved === null){
+        //it's free, reserve it
+        const item = {category: newCategory };
+        await Categories.create(item);
+        console.log("new Category added to inventory:" + newCategory);
     }
-    return res.status(200).send(response);
+
+    let categories : ICategory[] | null = await Categories.find();
+
+    return res.status(200).send(categories);
+});
+
+inventoryRouter.delete("/categories/:name",verifyAdmin, async (_req: Request, res: Response) => {
+    const newCategory : string = String(_req.params.name);
+
+    const filter =  {category: newCategory};
+    //verify that it's not  a duplicate
+    let reserved : ICategory | null = await Categories.findOne(filter);
+    if(reserved !== null){
+        //found, delete it
+        const item = {category: newCategory };
+        await Categories.findOneAndDelete(item);
+        console.log("categoruy deleted" + newCategory);
+    }
+
+    let categories : ICategory[] | null = await Categories.find();
+    return res.status(200).send(categories);
 });
 
 
-inventoryRouter.post("/categories",verifyAdmin, async (_req: Request, res: Response) => {
-    const newCategories: String[] = _req.body.newCategories;
-    const filter = { name: inventoryName };
-    await Categories.findOneAndUpdate(filter,{
-        name: inventoryName,
-        categories: newCategories
-    },upsert);
-
-    //item added, return 200
-    return res.status(200).send();
-});
 
 export default inventoryRouter;

@@ -1,8 +1,9 @@
 import React, {useState, } from 'react';
 import Select, { SingleValue } from "react-select";
+import { Category } from '../pages/inventory';
 
 type Props = {
-  categories: String[];  
+  categories: Category[];  
   newItemCallback: (pname: string, pcategory: string) => void;
   newCategoryCallback: () => void;
 
@@ -23,7 +24,7 @@ const NewItemEditor: React.FunctionComponent<Props> = (props) => {
 
     //TODO: loop categories and add them into options
     for (let i of props.categories) {
-      options.push({value:i, label:i} as SelectableCategory);    
+      options.push({value:i.category, label:i.category} as SelectableCategory);    
     }
 
     options.push({value:"new", label:"new Category"} as SelectableCategory)
