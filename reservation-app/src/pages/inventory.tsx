@@ -128,7 +128,7 @@ const InventoryPage: React.FunctionComponent = () => {
         <ul>
         {!addCategory && items && items.map(item =>
               <li key={item._id}>
-                  <td>{item.name}  - category: {item.category} ----<button onClick={ () => {removeItem(item.name);}}>removeMe</button></td>
+                  <div>{item.name}  - category: {item.category} ----<button onClick={ () => {removeItem(item.name);}}>removeMe</button></div>
               </li>
           )}
           </ul>
@@ -155,7 +155,7 @@ const InventoryPage: React.FunctionComponent = () => {
         <ul>
         { categories && categories.map(category =>
               <li key={category._id}>
-                  <td> - category: {category.category} ----<button onClick={ () => {removeCategory(category.category);}}>removeMe</button></td>
+                  <div> - category: {category.category} ----<button onClick={ () => {removeCategory(category.category);}}>removeMe</button></div>
               </li>
           )}
         </ul>
