@@ -42,9 +42,7 @@ const InventoryPage: React.FunctionComponent = () => {
     });
 
     //post new projects to backend
-    axios.post("/api/inventory", {
-      newProjs
-    })
+    axios.delete("/api/inventory/"+name,)
     .then(function (response) {
       setItems(newProjs);
       setAddItem(false);
@@ -65,10 +63,9 @@ const InventoryPage: React.FunctionComponent = () => {
     Array.prototype.push.apply(newItems, items);
     newItems.push(newItem);
 
-    //post new projects to backend
-    axios.post("/api/inventory", {
-      newItems
-      }).then(function (response) {
+    //post new item to backend  
+    axios.post("/api/inventory", {name: pname, category: pcategory})
+      .then(function (response) {
         setItems(newItems);
         setAddItem(false);
         setAddCategory(false);
