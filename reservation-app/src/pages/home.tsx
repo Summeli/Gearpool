@@ -7,13 +7,14 @@ import "./home.css";
 
 const Home: React.FunctionComponent = () => {
 
-  const { authenticated} = useUser();
+  const { authenticated, isNavExpanded} = useUser();
   return (
     <div className="Home">
     {!authenticated ? <Redirect to="/" /> : 
-      <div className="calendar-wrapper">
-        <ReservationsCalendar />
-      </div> }
+      isNavExpanded ? <div /> : 
+        <div className="calendar-wrapper">
+          <ReservationsCalendar />
+        </div> }
       <Footer />
    </div> 
   );

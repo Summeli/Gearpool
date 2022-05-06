@@ -21,7 +21,7 @@ const ReservationsCalendar: React.FunctionComponent<CalendarProps> = ({ weekStar
     <CalendarHeader />
     <CalendarDays />
     <CalendarCells />
-    <CalendarExplanation / >
+    <CalendarExplanation />
   </ReservationContextProvider>
 );
   

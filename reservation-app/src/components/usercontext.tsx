@@ -7,6 +7,8 @@ type UserContext = {
     setAuthenticated: (authenticated: boolean) => void;
     admin: boolean;
     setAdmin: (admin: boolean) => void;
+    isNavExpanded: boolean,
+    setIsNavExpanded: (isNaveExpanded: boolean) => void;
   };
   
 // eslint-disable-next-line  
@@ -22,6 +24,7 @@ export const UserProvider: React.FunctionComponent<UserContextProps> = ({childre
     const [user, setUser] = useState("");
     const [admin, setAdmin] = useState(false);
     const [authenticated, setAuthenticated] = useState(false);
+    const [isNavExpanded, setIsNavExpanded] = useState(false);
 
     return (
         <UserContext.Provider
@@ -31,7 +34,9 @@ export const UserProvider: React.FunctionComponent<UserContextProps> = ({childre
             admin,
             setAdmin,
             authenticated,
-            setAuthenticated
+            setAuthenticated,
+            isNavExpanded,
+            setIsNavExpanded
           }}
         >
           {children}

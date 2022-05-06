@@ -1,39 +1,44 @@
 import axios from 'axios';
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import { Link } from 'react-router-dom';
+import HamburgerIcon from './hamburgericon';
 import { useUser } from './usercontext';
 
 
 const Navigation: React.FunctionComponent = () => {
-    const { authenticated,setAuthenticated, user,admin} = useUser();
-    let loginstatus= "Login"
-    if(!setAuthenticated){
+    const { authenticated,setAuthenticated, user,admin,isNavExpanded, setIsNavExpanded} = useUser();
+
+    let loginstatus: String = "Login";
+
+    if(!setAuthenticated || !setIsNavExpanded){
       return null;
     }
     if(authenticated && user){
-        loginstatus=user;
+        loginstatus="Howdy, " + user;
     }
 
     const logout  = () => {
           //post new projects to backend
-    axios.post("/api/logout", {
-      }).then(function (response) {
-        setAuthenticated(false);
-    }).catch(function (error) {
-      console.log(error);
-    }); 
+      axios.post("/api/logout", {})
+          .then(function (response) {
+            setAuthenticated(false);})
+          .catch(function (error) {
+            console.log(error);
+        });
+        setIsNavExpanded(false); 
     };
 
     return ( <nav className="navigation">
-        <ul>
-          <li>
-            <Link to="/">{loginstatus}</Link>
-          </li>
-          {authenticated ? ( <li> <Link to="/home/">Home</Link> </li>) : ""}
-          {authenticated && admin ? ( <li><Link to="/inventory/">Inventory</Link></li>) : ""}
-          {authenticated && admin ? ( <li><Link to="/userpermissions">Users</Link></li>) : ""}
-          {authenticated ? ( <li className='logout-button' onClick={logout}><Link to="/">Logout</Link></li>) : ""}
-        </ul>
+              <Link to="/" className="login-status">{loginstatus}</Link>
+              <button className="hamburger" onClick={() => {setIsNavExpanded(!isNavExpanded);}}><HamburgerIcon /></button>  
+              <div className={isNavExpanded ? "navigation-menu expanded" : "navigation-menu"}>        
+                <ul>
+                  {authenticated ? ( <li> <Link to="/home/" onClick={() => {setIsNavExpanded(false);}}>Home</Link> </li>) : ""}
+                  {authenticated && admin ? ( <li><Link to="/inventory/" onClick={() => {setIsNavExpanded(false);}} >Inventory</Link></li>) : ""}
+                  {authenticated && admin ? ( <li><Link to="/userpermissions"  onClick={() => {setIsNavExpanded(false);}}>Users</Link></li>) : ""}
+                  {authenticated ? ( <li className='logout-button' onClick={logout}><Link to="/">Logout</Link></li>) : ""}
+                </ul>
+            </div>
       </nav>
     )};
 
