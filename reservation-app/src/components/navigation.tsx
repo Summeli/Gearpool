@@ -36,6 +36,7 @@ const Navigation: React.FunctionComponent = () => {
                   {authenticated ? ( <li> <Link to="/home/" onClick={() => {setIsNavExpanded(false);}}>Home</Link> </li>) : ""}
                   {authenticated && admin ? ( <li><Link to="/inventory/" onClick={() => {setIsNavExpanded(false);}} >Inventory</Link></li>) : ""}
                   {authenticated && admin ? ( <li><Link to="/userpermissions"  onClick={() => {setIsNavExpanded(false);}}>Users</Link></li>) : ""}
+                  {authenticated ? ( <li><Link to="/about" onClick={() => {setIsNavExpanded(false);}}>About</Link></li>) : ""}
                   {authenticated ? ( <li className='logout-button' onClick={logout}><Link to="/">Logout</Link></li>) : ""}
                 </ul>
             </div>

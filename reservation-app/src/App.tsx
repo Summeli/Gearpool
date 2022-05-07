@@ -8,6 +8,7 @@ import { UserProvider } from "./components/usercontext";
 import Navigation from "./components/navigation";
 import InventoryPage from "./pages/inventory";
 import UserPermissionsPage from "./pages/userPermissions";
+import About from "./pages/about";
 
 function App() {
   return (
@@ -27,6 +28,9 @@ function App() {
         </Route>
         <Route path="/userpermissions/" exact>
           <UserPermissionsPage />
+        </Route>
+        <Route path="/about/" exact>
+          <About />
         </Route>
       </UserProvider>
     </div>
