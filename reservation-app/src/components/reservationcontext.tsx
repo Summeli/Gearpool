@@ -3,7 +3,7 @@ import { addMonths, subMonths, startOfMonth } from 'date-fns';
 import { CalendarWeekStartsOn } from './reservationcalendar';
 import axios from 'axios';
 import { useUser } from './usercontext';
-import { getReservations, makeReservation } from '../util/reservationHelper';
+import { getReservations, makeReservation, removeReservation } from '../util/reservationHelper';
 
 export type ReservationResponse = {
   reservations: ItemReservation[]
@@ -35,6 +35,7 @@ type ReservationContext = {
   setItem: (item: SelectableItem) => void;
   selectItem: (item: SelectableItem) => void;
   selectedDate: Date,
+  setSelectedDate: (date: Date) => void;
   reservations: CalendarReservation[];
   setReservations: (items: CalendarReservation[] ) => void;
   weekStartsOn: CalendarWeekStartsOn;
@@ -45,6 +46,9 @@ type ReservationContext = {
   reserveDate: (data: Date) => void;
   prevMonth: () => void;
   nextMonth: () => void;
+  isAdminMode: boolean;
+  toggleAdminMode: () => void;
+  rmReservation: (date: Date) => void;
 };
 
 // isable warning for redecalaration
@@ -67,18 +71,30 @@ export const ReservationContextProvider: React.FunctionComponent<ReservationCont
   const [item, setItem] = useState({name:"",_id:"", category:""});
   const [inventory, setInventory] = useState(new Array<SelectableItem>());
   const [selectedDate, setSelectedDate] = useState<Date>();
+  const [isAdminMode, setIsAdminMode] = useState(false);
   const changeMonth = (month: Date) => {
     setSelectedDate(startOfMonth(month));
     setCurrentMonth(month);
   };
   const prevMonth = () => changeMonth(subMonths(currentMonth, 1));
   const nextMonth = () => changeMonth(addMonths(currentMonth, 1));
+  const toggleAdminMode = () => setIsAdminMode(!isAdminMode);
 
   const {setAuthenticated} = useUser();
 
   const reserveDate = useCallback( async (date: Date) => {
     if(item._id !== null && item._id.length > 0){
       const reservations: CalendarReservation[]= await makeReservation(date, item._id);
+      setReservations(reservations);
+      setSelectedDate(date);
+    }else{
+      //TODO: show EROOR dialog that an iteam should be selected
+    }
+  },[item]);
+
+  const rmReservation = useCallback( async (date: Date) => {
+    if(item._id !== null && item._id.length > 0){
+      const reservations: CalendarReservation[]= await removeReservation(date, item._id);
       setReservations(reservations);
       setSelectedDate(date);
     }else{
@@ -107,6 +123,7 @@ export const ReservationContextProvider: React.FunctionComponent<ReservationCont
         item,
         selectItem,
         selectedDate,
+        setSelectedDate,
         inventory,
         setInventory,
         reservations,
@@ -116,7 +133,10 @@ export const ReservationContextProvider: React.FunctionComponent<ReservationCont
         setCurrentMonth,
         prevMonth,
         nextMonth,
-        reserveDate
+        reserveDate,
+        isAdminMode,
+        toggleAdminMode,
+        rmReservation
       }}
     >
       {children}

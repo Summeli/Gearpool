@@ -15,7 +15,6 @@ const Home: React.FunctionComponent = () => {
         <div className="calendar-wrapper">
           <ReservationsCalendar />
         </div> }
-      <Footer />
    </div> 
   );
 };

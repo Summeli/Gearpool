@@ -8,9 +8,9 @@ type Props = {
 };
 
 const CalendarCell: React.FunctionComponent<Props> = ({ date }) => {
-  const { selectedDate, reservations, currentMonth, reserveDate } = useReservationContext();
+  const { selectedDate, reservations, currentMonth, reserveDate, isAdminMode, setSelectedDate } = useReservationContext();
 
-  if (!currentMonth || !reserveDate || !reservations ) return null;
+  if (!currentMonth || !reserveDate || !reservations || !setSelectedDate) return null;
 
   const thisDate = date;
 
@@ -41,10 +41,16 @@ const CalendarCell: React.FunctionComponent<Props> = ({ date }) => {
     classes += ' calendar-cell--holiday';
   }
   
+  const doReservation = (date: Date) => {
+    if(!isAdminMode) //no reservation in admin mode
+      reserveDate(date);
+    else
+      setSelectedDate(date);
+  };
   return (
     <div
       className={classes}
-      onClick={() => isSameMonth(thisDate, currentMonth) && reserveDate(thisDate)}
+      onClick={() => isSameMonth(thisDate, currentMonth) && doReservation(thisDate)}
       data-testid="calendar-cell"
     >
       <div className="calendar-cell__date">

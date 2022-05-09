@@ -53,6 +53,31 @@ export async function makeReservation(reservationDate: Date, itemId: string): Pr
   }
 
 
+  export async function removeReservation(reservationDate: Date, itemId: string): Promise<CalendarReservation[]> {
+
+    const month: number = getMonth(reservationDate);
+    const year: number = getYear(reservationDate);
+    const date: number = getDate(reservationDate);
+
+    let id: String = JSON.stringify(itemId);
+    //post new projects to backend
+   return axios
+        .delete("/api/reservations/"+year+"/"+month+"/" + date +"?id="+id, {
+        })
+    .then(function (response) {
+        if(response.status!==200) {
+            return {} as CalendarReservation[];
+         }
+         let resp: ItemReservation[] = response.data as ItemReservation[];
+         return convertItemToCalendar(resp);
+    })
+    .catch(function (error) {
+        console.log("ERROR", error);
+        let resp: ItemReservation[] = {} as ItemReservation[];
+        return convertItemToCalendar(resp);
+    }); 
+  }
+  
 function convertItemToCalendar(reservationresponse: ItemReservation[]): CalendarReservation[]{
     let resp : CalendarReservation[] = new Array<CalendarReservation>();
     for (var reservation of reservationresponse) {

@@ -147,6 +147,25 @@
     font-weight: bold;
   }
 
+  .admin-editor{
+    position:relative;
+    display:flex;
+    flex-direction: column;
+    flex-wrap:wrap;
+  }
+  .admin-editor {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5% 1%;
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+  .admin-reservation{
+    width: 100%
+  }
+
   @media only screen and (max-width: 768px) {
     .calendar-wrapper{
       display: block;
