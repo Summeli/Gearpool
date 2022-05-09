@@ -16,8 +16,8 @@ const About: React.FunctionComponent = () => {
             <h2>Gearpool reservation system</h2>
             <p>Just grab gear, and tap calendar to reserve the gear for your</p>
             <h3>Is something missing?</h3>
-            <p>Contribute to the project on <a href="https://github.com/Summeli/Gearpool" target="_blank">Github</a></p><br />
-            <p>You can also <a href="https://github.com/Summeli/Gearpool/issues" target="_blank">create an issue</a> and hope that someone implements that for you.</p>
+            <p>Contribute to the project on <a href="https://github.com/Summeli/Gearpool" target="_blank" rel="noreferrer" >Github</a></p><br />
+            <p>You can also <a href="https://github.com/Summeli/Gearpool/issues" target="_blank" rel="noreferrer">create an issue</a> and hope that someone implements that for you.</p>
         </div> 
     }
       <Footer />

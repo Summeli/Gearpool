@@ -1,5 +1,5 @@
 import { format, isSameDay } from 'date-fns';
-import React, { Key } from 'react';
+import React from 'react';
 import { useReservationContext } from './reservationcontext';
 
 type Props = {

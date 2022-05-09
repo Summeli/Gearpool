@@ -1,6 +1,5 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import Footer from "../components/footer";
 import ReservationsCalendar from "../components/reservationcalendar";
 import { useUser } from "../components/usercontext";
 import "./home.css";

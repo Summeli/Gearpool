@@ -1,7 +1,5 @@
-import { addDays, endOfWeek, format, startOfWeek } from 'date-fns';
 import React from 'react';
 import { useReservationContext } from './reservationcontext';
-import ReservedDayEditor from './reservedDayEditor';
 import { useUser } from './usercontext';
 
 const AdminModetoggle: React.FunctionComponent = () => {
