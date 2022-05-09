@@ -13,6 +13,7 @@ import reservationsRouter from "./routes/reservationsRouter"
 import {MONGO_URL, ENV, PORT, REACT_APP_SHOW_BUILD} from "./middleware/env"
 config();
 const app: Application = express();
+app.use(express.static('public'))
 
 app.use(json());
 
@@ -46,6 +47,7 @@ if(process.env.NODE_ENV === 'development'){
       next();
   });
 }
+
 
 const routes = Router();
 routes.use('/api/login', loginRouter);
