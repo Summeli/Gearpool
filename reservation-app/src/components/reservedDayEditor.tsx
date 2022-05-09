@@ -1,5 +1,5 @@
 import { format, isSameDay } from 'date-fns';
-import React from 'react';
+import React, { Key } from 'react';
 import { useReservationContext } from './reservationcontext';
 
 type Props = {
@@ -26,7 +26,7 @@ const ReservedDayEditor: React.FunctionComponent<Props> = ({ date })=> {
 
       
     return (
-        <div className="admin-reservation" key = {format(date, 'd')}>
+        <div className="admin-reservation">
       
         {format(date, 'd') +"  "}:  reserved by: {reservedBy + "   "}
             <button onClick={removeReservation}>remove Reservation</button>

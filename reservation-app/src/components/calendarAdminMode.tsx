@@ -32,14 +32,11 @@ const CalendarAdminMode: React.FunctionComponent = () => {
     dates.push(date);
     date = addDays(date, 1);
   }
-  dates.map(day =>(
-      <ReservedDayEditor date={day} />)
-      )
 
   return (
       <div className="admin-editor">
       {dates.map(day => (
-        <ReservedDayEditor date={day} />))}
+        <ReservedDayEditor key = {format(day, 'd')} date={day} />))}
       </div>
       )
 };
