@@ -1,7 +1,6 @@
 import {Router, Request, Response} from "express";
-import { request } from "http";
 import { isAdmin, verifyAdmin, verifyLogin } from "../middleware/loginmiddleware";
-import {IItemReservation, ItemReservation} from '../models/ItemReservation';
+import {IItemReservation, ItemReservation} from "../models/itemReservation";
 
 //upsert option for montdb
 const upsert =  {
